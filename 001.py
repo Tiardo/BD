@@ -1,7 +1,14 @@
 from tkinter import *
 from tkinter import ttk
 
-
+###########подключаемся к бд#############
+import pymysql.cursors
+con = pymysql.connect(host='localhost',
+                      user='root',
+                      password='111',
+                      db='bdmain',
+                      charset='utf8mb4',
+                      cursorclass=pymysql.cursors.DictCursor)
 
 ##### Создание окна #######
 peremennaia = Tk()
