@@ -1,0 +1,6 @@
+create table inform(
+	name VARCHAR(50) NOT NULL,
+	opisanie VARCHAR(50) NOT NULL,
+	cena VARCHAR(30) NOT NULL,
+	kolvo VARCHAR(50) NOT NULL
+);
