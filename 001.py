@@ -3,12 +3,15 @@ from tkinter import ttk
 
 ###########подключаемся к бд#############
 import pymysql.cursors
+
 con = pymysql.connect(host='localhost',
                       user='root',
-                      password='111',
+                      password='1111',
                       db='bdmain',
                       charset='utf8mb4',
                       cursorclass=pymysql.cursors.DictCursor)
+
+
 
 ##### Создание окна #######
 peremennaia = Tk()
@@ -27,7 +30,7 @@ tab_control = ttk.Notebook(peremennaia)
 vkladka1 = ttk.Frame(tab_control)
 tab_control.add(vkladka1, text='добавление')
 
-# текст вкладки 1 #
+# имя строки (вкладка 1) #
 txt1 = Label(vkladka1, text='наименование')
 txt1.grid(column=0, row=0)
 
@@ -41,24 +44,32 @@ txt4 = Label(vkladka1, text='количество')
 txt4.grid(column=0, row=3)
 
 
-# ввод текста вкладки 1 #
-txt = Entry(vkladka1,width=20)
-txt.grid(column=2, row=0)
+# текст строки (вкладка 1) #
+txt5 = Entry(vkladka1,width=20)
+txt5.grid(column=2, row=0)
 
-txt = Entry(vkladka1,width=20)
-txt.grid(column=2, row=1)
+txt6 = Entry(vkladka1,width=20)
+txt6.grid(column=2, row=1)
 
-txt = Entry(vkladka1,width=20)
-txt.grid(column=2, row=2)
+txt7 = Entry(vkladka1,width=20)
+txt7.grid(column=2, row=2)
 
 # ввод количества вкладки 1 #
-spin = Spinbox(vkladka1, from_=0, to=100, width=5)
-spin.grid(column=2, row=3)
+spin8 = Spinbox(vkladka1, from_=0, to=100, width=5)
+spin8.grid(column=2, row=3)
 
 
 # кнопка внутри вкладки 1 #
 # действие кнопки 1 #
 def clicked():
+    with con:
+        cur = con.cursor()
+
+        cur.execute('INSERT INTO inform VALUES ( %s, %s, %s, %s)', (txt5.get(), txt6.get(), txt7.get(), spin8.get()))
+
+        cur.fetchall()
+        con.commit()
+
     txt1.configure(text="действие кнопки")
     txt2.configure(text="действие кнопки")
     txt3.configure(text="действие кнопки")
