@@ -1,15 +1,17 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter.ttk import Progressbar
 
 ###########подключаемся к бд#############
 import pymysql.cursors
 
 con = pymysql.connect(host='localhost',
                       user='root',
-                      password='1111',
+                      password='11111',
                       db='bdmain',
                       charset='utf8mb4',
                       cursorclass=pymysql.cursors.DictCursor)
+
 
 
 
@@ -18,7 +20,7 @@ peremennaia = Tk()
 ##### название окна #######
 peremennaia.title("база данных")
 ##### размер окна #######
-peremennaia.geometry("400x300")
+peremennaia.geometry("300x300")
 ##### иконка #######
 peremennaia.iconbitmap('static/icon.ico')
 
@@ -43,6 +45,11 @@ txt3.grid(column=0, row=2)
 txt4 = Label(vkladka1, text='количество')
 txt4.grid(column=0, row=3)
 
+txt10 = Label(vkladka1, text='Ввод')
+txt10.grid(column=2, row=5)
+
+
+
 
 # текст строки (вкладка 1) #
 txt5 = Entry(vkladka1,width=20)
@@ -59,6 +66,7 @@ spin8 = Spinbox(vkladka1, from_=0, to=100, width=5)
 spin8.grid(column=2, row=3)
 
 
+
 # кнопка внутри вкладки 1 #
 # действие кнопки 1 #
 def clicked():
@@ -70,14 +78,28 @@ def clicked():
         cur.fetchall()
         con.commit()
 
-    txt1.configure(text="действие кнопки")
-    txt2.configure(text="действие кнопки")
-    txt3.configure(text="действие кнопки")
-    txt4.configure(text="действие кнопки")
+        txt10.configure(text="Загрузка завершена")
+        bar['value'] = 100
+
+
+
+#############Изменение текста##############
+#    txt1.configure(text="действие кнопки")
+#    txt2.configure(text="действие кнопки")
+#    txt3.configure(text="действие кнопки")
+#    txt4.configure(text="действие кнопки")
 
 # кнопка 1 #
 btn1 = Button(vkladka1, text="загрузка данныйх", command=clicked)
 btn1.grid(column=0, row=4, padx=5, pady=5)
+
+# прогрессбар вкладки 1 #
+style = ttk.Style()
+style.configure("black.Horizontal.TProgressbar", background='black')
+bar = Progressbar(vkladka1, length=100, style='black.Horizontal.TProgressbar')
+bar.grid(column=2, row=7)
+
+
 
 
 # вкладка 2 #
